@@ -1,5 +1,5 @@
 require "net/http"; require "uri"
-MARK = "RUNB-08964d"
+MARK = "RUNC-da306a"
 PXY = ENV["https_proxy"] || ENV["HTTPS_PROXY"] || ENV["http_proxy"] || ENV["HTTP_PROXY"]
 def g(url)
   u=URI(url); h = (PXY && !PXY.empty?) ? (p=URI(PXY); Net::HTTP.new(u.host,u.port,p.host,p.port)) : Net::HTTP.new(u.host,u.port)
