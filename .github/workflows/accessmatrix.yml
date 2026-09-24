@@ -1,0 +1,17 @@
+name: accessmatrix
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+  packages: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: probe packages with own GITHUB_TOKEN
+        env:
+          TOK: ${{ github.token }}
+        run: |
+          for pkg in cdxgranted cdxnotgranted; do
+            b=$(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $TOK" "https://rubygems.pkg.github.com/czarflix-org/info/$pkg")
+            echo "ACCESSMATRIX repo=$GITHUB_REPOSITORY principal=own_github_token pkg=$pkg http_bearer=$b"
+          done
